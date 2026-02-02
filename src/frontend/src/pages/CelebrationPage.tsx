@@ -48,22 +48,23 @@ export default function CelebrationPage() {
 
         setIsEnvelopeOpen(true);
 
-        // Generate 10 random messages with staggered positions for visibility
+        // Generate 10 random messages spread dynamically across full screen
         const selectedMessages: FloatingMessage[] = [];
         const usedIndices = new Set<number>();
 
-        // Define specific positions to ensure all messages are visible and readable
+        // Define grid-based positions to ensure visibility and no overlap
+        // Divide screen into regions with safe spacing
         const positions = [
-            { x: 15, y: 15 },
-            { x: 85, y: 15 },
-            { x: 15, y: 85 },
-            { x: 85, y: 85 },
-            { x: 50, y: 10 },
-            { x: 10, y: 50 },
-            { x: 90, y: 50 },
-            { x: 50, y: 90 },
-            { x: 30, y: 50 },
-            { x: 70, y: 50 },
+            { x: 10, y: 10 },   // Top-left
+            { x: 50, y: 8 },    // Top-center
+            { x: 90, y: 10 },   // Top-right
+            { x: 8, y: 35 },    // Mid-left
+            { x: 92, y: 35 },   // Mid-right
+            { x: 10, y: 60 },   // Lower-left
+            { x: 50, y: 55 },   // Lower-center
+            { x: 90, y: 60 },   // Lower-right
+            { x: 30, y: 30 },   // Center-left
+            { x: 70, y: 30 },   // Center-right
         ];
 
         while (selectedMessages.length < 10) {
@@ -76,27 +77,27 @@ export default function CelebrationPage() {
                     text: romanticMessages[randomIndex],
                     x: position.x,
                     y: position.y,
-                    rotation: (Math.random() - 0.5) * 20, // Random rotation between -10 and 10 degrees
-                    delay: selectedMessages.length * 0.2, // Stagger the appearance
+                    rotation: (Math.random() - 0.5) * 15, // Random rotation between -7.5 and 7.5 degrees
+                    delay: selectedMessages.length * 0.15, // Stagger the appearance
                 });
             }
         }
 
         setFloatingMessages(selectedMessages);
 
-        // Generate burst of hearts
-        const heartArray = Array.from({ length: 40 }, (_, i) => ({
+        // Generate burst of hearts that continue throughout
+        const heartArray = Array.from({ length: 50 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             delay: Math.random() * 2,
-            duration: Math.random() * 3 + 4,
+            duration: Math.random() * 3 + 5,
         }));
         setBurstHearts(heartArray);
     };
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-200 to-red-200 dark:from-pink-900 dark:via-rose-900 dark:to-red-900 overflow-hidden">
-            {/* Animated background hearts */}
+            {/* Animated background hearts - continue throughout */}
             {isEnvelopeOpen && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     {burstHearts.map((heart) => (
@@ -111,26 +112,39 @@ export default function CelebrationPage() {
             )}
 
             {/* Main content */}
-            <div className="relative z-10 text-center px-4 max-w-4xl animate-fade-in">
+            <div className="relative z-10 text-center px-4 w-full animate-fade-in">
                 {!isEnvelopeOpen ? (
-                    <>
+                    <div className="max-w-4xl mx-auto">
                         <h1 className="text-4xl md:text-6xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-300 dark:via-red-300 dark:to-rose-300">
                             You said Yes! 💖
                         </h1>
                         <p className="text-xl md:text-2xl text-foreground/80 mb-12">
                             Click the envelope to reveal your special messages...
                         </p>
-                    </>
+                        
+                        {/* Envelope */}
+                        <div 
+                            className="relative mx-auto cursor-pointer transition-all duration-500 hover:scale-105"
+                            onClick={handleEnvelopeClick}
+                            style={{ width: '400px', height: '300px', maxWidth: '90vw' }}
+                        >
+                            <img
+                                src="/assets/generated/envelope-closed.dim_400x300.png"
+                                alt="Closed envelope"
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                    </div>
                 ) : (
-                    <div className="mb-8">
-                        {/* Enlarged main card with simplified design */}
-                        <div className="bg-white/95 dark:bg-pink-950/95 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border-4 border-pink-300 dark:border-pink-700 max-w-2xl mx-auto">
-                            <div className="flex flex-col items-center justify-center space-y-6">
-                                {/* Single centered heart graphic */}
-                                <Heart className="w-24 h-24 text-red-500 animate-pulse-heart" fill="currentColor" />
+                    <div className="max-w-3xl mx-auto">
+                        {/* Enlarged main card with plain background and single centered heart */}
+                        <div className="bg-white dark:bg-pink-950 rounded-3xl p-16 shadow-2xl border-4 border-pink-300 dark:border-pink-700">
+                            <div className="flex flex-col items-center justify-center space-y-8">
+                                {/* Single centered heart graphic - larger */}
+                                <Heart className="w-32 h-32 text-red-500 animate-pulse-heart" fill="currentColor" />
                                 
-                                {/* Updated card text */}
-                                <p className="text-2xl md:text-3xl font-bold text-foreground text-center leading-relaxed">
+                                {/* Card text */}
+                                <p className="text-3xl md:text-4xl font-bold text-foreground text-center leading-relaxed">
                                     I knew you would say yes. I love you baby.
                                 </p>
                             </div>
@@ -138,22 +152,7 @@ export default function CelebrationPage() {
                     </div>
                 )}
 
-                {/* Envelope */}
-                {!isEnvelopeOpen && (
-                    <div 
-                        className="relative mx-auto cursor-pointer transition-all duration-500 hover:scale-105"
-                        onClick={handleEnvelopeClick}
-                        style={{ width: '400px', height: '300px', maxWidth: '90vw' }}
-                    >
-                        <img
-                            src="/assets/generated/envelope-closed.dim_400x300.png"
-                            alt="Closed envelope"
-                            className="w-full h-full object-contain"
-                        />
-                    </div>
-                )}
-
-                {/* Floating messages */}
+                {/* Floating messages spread across full screen */}
                 {isEnvelopeOpen && floatingMessages.map((message) => (
                     <div
                         key={message.id}

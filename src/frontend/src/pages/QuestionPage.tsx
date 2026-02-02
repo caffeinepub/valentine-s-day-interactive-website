@@ -8,12 +8,13 @@ interface QuestionPageProps {
 
 export default function QuestionPage({ onYes }: QuestionPageProps) {
     const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
+    const [showHeading, setShowHeading] = useState(false);
     const noButtonRef = useRef<HTMLButtonElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            if (!noButtonRef.current || !containerRef.current) return;
+            if (!noButtonRef.current || !containerRef.current || showHeading) return;
 
             const buttonRect = noButtonRef.current.getBoundingClientRect();
             const buttonCenterX = buttonRect.left + buttonRect.width / 2;
@@ -49,7 +50,15 @@ export default function QuestionPage({ onYes }: QuestionPageProps) {
 
         window.addEventListener('mousemove', handleMouseMove);
         return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+    }, [showHeading]);
+
+    const handleYesClick = () => {
+        setShowHeading(true);
+        // Transition to celebration page after showing heading
+        setTimeout(() => {
+            onYes();
+        }, 2500);
+    };
 
     return (
         <div 
@@ -61,7 +70,7 @@ export default function QuestionPage({ onYes }: QuestionPageProps) {
                 {[...Array(15)].map((_, i) => (
                     <Heart
                         key={i}
-                        className="absolute text-pink-300 dark:text-pink-700 opacity-20"
+                        className="absolute text-pink-300 dark:text-pink-700 opacity-20 animate-float"
                         size={Math.random() * 40 + 20}
                         fill="currentColor"
                         style={{
@@ -76,49 +85,66 @@ export default function QuestionPage({ onYes }: QuestionPageProps) {
 
             {/* Main content */}
             <div className="relative z-10 text-center px-4 animate-fade-in">
-                <div className="mb-8 flex justify-center">
-                    <Heart
-                        className="text-red-500 dark:text-red-400 animate-pulse-heart"
-                        size={80}
-                        fill="currentColor"
-                    />
-                </div>
+                {showHeading ? (
+                    <div className="animate-fade-in">
+                        <div className="mb-8 flex justify-center">
+                            <Heart
+                                className="text-red-500 dark:text-red-400 animate-pulse-heart"
+                                size={100}
+                                fill="currentColor"
+                            />
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400">
+                            I knew you would say yes. I love you baby.
+                        </h1>
+                    </div>
+                ) : (
+                    <>
+                        <div className="mb-8 flex justify-center">
+                            <Heart
+                                className="text-red-500 dark:text-red-400 animate-pulse-heart"
+                                size={80}
+                                fill="currentColor"
+                            />
+                        </div>
 
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400">
-                    Will you be my Valentine?
-                </h1>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400">
+                            Will you be my Valentine?
+                        </h1>
 
-                <p className="text-xl md:text-2xl text-muted-foreground mb-12 font-medium">
-                    Choose wisely... 💕
-                </p>
+                        <p className="text-xl md:text-2xl text-muted-foreground mb-12 font-medium">
+                            Choose wisely... 💕
+                        </p>
 
-                <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
-                    <Button
-                        size="lg"
-                        onClick={onYes}
-                        className="text-xl px-12 py-8 rounded-2xl bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110"
-                    >
-                        Yes! 💖
-                    </Button>
+                        <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
+                            <Button
+                                size="lg"
+                                onClick={handleYesClick}
+                                className="text-xl px-12 py-8 rounded-2xl bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110"
+                            >
+                                Yes! 💖
+                            </Button>
 
-                    <Button
-                        ref={noButtonRef}
-                        size="lg"
-                        variant="outline"
-                        className="text-xl px-12 py-8 rounded-2xl border-2 transition-all duration-200 cursor-pointer"
-                        style={{
-                            transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
-                            transition: 'transform 0.2s ease-out',
-                        }}
-                        onClick={(e) => e.preventDefault()}
-                    >
-                        No
-                    </Button>
-                </div>
+                            <Button
+                                ref={noButtonRef}
+                                size="lg"
+                                variant="outline"
+                                className="text-xl px-12 py-8 rounded-2xl border-2 transition-all duration-200 cursor-pointer"
+                                style={{
+                                    transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
+                                    transition: 'transform 0.2s ease-out',
+                                }}
+                                onClick={(e) => e.preventDefault()}
+                            >
+                                No
+                            </Button>
+                        </div>
 
-                <p className="mt-8 text-lg text-muted-foreground italic">
-                    Try to click "No" if you dare... 😏
-                </p>
+                        <p className="mt-8 text-lg text-muted-foreground italic">
+                            Try to click "No" if you dare... 😏
+                        </p>
+                    </>
+                )}
             </div>
 
             {/* Footer */}
