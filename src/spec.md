@@ -16,9 +16,16 @@ A playful Valentine's Day website that asks "Will you be my Valentine?" with int
 ### Envelope Interaction Page
 - Display a centered envelope image
 - Interactive envelope that opens when clicked with smooth CSS/keyframe animation
-- Opening triggers release of approximately 10 random romantic messages that float, spin, and spread across the screen
+- Opening triggers release of approximately 10 random romantic messages that float and spread across the screen in staggered positions
+- Messages use simple floating animations and remain visible and readable throughout
 - Enhanced floating heart effects burst in background when envelope opens
 - Each envelope opening selects random messages from expanded collection
+
+### Celebration Card Display
+- After envelope opens, display an enlarged main card with simplified design
+- Card features plain background with single cute heart graphic centered on it
+- Card displays the text: "I knew you would say yes. I love you baby."
+- Card design maintains romantic, soft aesthetic while being clean and simple
 
 ### Visual Design
 - Cute, lighthearted romantic aesthetic
@@ -26,6 +33,7 @@ A playful Valentine's Day website that asks "Will you be my Valentine?" with int
 - Smooth transitions between interactions
 - Cheerful, romantic typography
 - Responsive design for different screen sizes
+- Romantic, soft, and sweet overall tone
 
 ## Technical Requirements
 
@@ -34,17 +42,20 @@ A playful Valentine's Day website that asks "Will you be my Valentine?" with int
 - No backend data storage required
 - Expanded preset list of at least 20 romantic messages stored in frontend code
 - Random message selection handled client-side
-- Envelope opening animation and message floating effects
+- Envelope opening animation and message floating effects with staggered positioning
+- Messages remain visible and readable with simple floating animations
 
 ### Interactions
 - Mouse proximity detection for "No" button evasive movement
 - Click handlers for button interactions and envelope opening
 - Page transitions between question and envelope views
-- Floating message animations with spin and spread effects
+- Floating message animations with staggered spread positioning
 - Enhanced floating heart burst animations
 - Responsive button behaviors
+- Harmonious integration of envelope animation, floating hearts, and message display
 
 ## Content
 - Language: English
 - Expanded romantic messages collection (at least 20 sweet, loving phrases)
 - Valentine's Day themed text and styling
+- Main card text: "I knew you would say yes. I love you baby."

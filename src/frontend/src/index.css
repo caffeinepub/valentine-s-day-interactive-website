@@ -91,7 +91,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.15);
   }
 }
 
@@ -121,23 +121,14 @@
 @keyframes message-float {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
   }
-  50% {
+  60% {
     opacity: 1;
   }
   100% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1) rotate(var(--rotation, 0deg));
-  }
-}
-
-@keyframes message-spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
@@ -158,9 +149,5 @@
 }
 
 .animate-message-float {
-  animation: message-float 1s ease-out forwards;
-}
-
-.animate-message-float:hover {
-  animation: message-spin 2s linear infinite;
+  animation: message-float 1.2s ease-out forwards;
 }

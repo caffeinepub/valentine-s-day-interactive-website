@@ -48,21 +48,36 @@ export default function CelebrationPage() {
 
         setIsEnvelopeOpen(true);
 
-        // Generate 10 random messages
+        // Generate 10 random messages with staggered positions for visibility
         const selectedMessages: FloatingMessage[] = [];
         const usedIndices = new Set<number>();
+
+        // Define specific positions to ensure all messages are visible and readable
+        const positions = [
+            { x: 15, y: 15 },
+            { x: 85, y: 15 },
+            { x: 15, y: 85 },
+            { x: 85, y: 85 },
+            { x: 50, y: 10 },
+            { x: 10, y: 50 },
+            { x: 90, y: 50 },
+            { x: 50, y: 90 },
+            { x: 30, y: 50 },
+            { x: 70, y: 50 },
+        ];
 
         while (selectedMessages.length < 10) {
             const randomIndex = Math.floor(Math.random() * romanticMessages.length);
             if (!usedIndices.has(randomIndex)) {
                 usedIndices.add(randomIndex);
+                const position = positions[selectedMessages.length];
                 selectedMessages.push({
                     id: selectedMessages.length,
                     text: romanticMessages[randomIndex],
-                    x: 30 + Math.random() * 40, // Spread across 30-70% of screen width
-                    y: 20 + Math.random() * 60, // Spread across 20-80% of screen height
-                    rotation: (Math.random() - 0.5) * 30, // Random rotation between -15 and 15 degrees
-                    delay: selectedMessages.length * 0.15, // Stagger the appearance
+                    x: position.x,
+                    y: position.y,
+                    rotation: (Math.random() - 0.5) * 20, // Random rotation between -10 and 10 degrees
+                    delay: selectedMessages.length * 0.2, // Stagger the appearance
                 });
             }
         }
@@ -107,33 +122,42 @@ export default function CelebrationPage() {
                         </p>
                     </>
                 ) : (
-                    <h1 className="text-4xl md:text-6xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-300 dark:via-red-300 dark:to-rose-300">
-                        Happy Valentine's Day! 💝
-                    </h1>
+                    <div className="mb-8">
+                        {/* Enlarged main card with simplified design */}
+                        <div className="bg-white/95 dark:bg-pink-950/95 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border-4 border-pink-300 dark:border-pink-700 max-w-2xl mx-auto">
+                            <div className="flex flex-col items-center justify-center space-y-6">
+                                {/* Single centered heart graphic */}
+                                <Heart className="w-24 h-24 text-red-500 animate-pulse-heart" fill="currentColor" />
+                                
+                                {/* Updated card text */}
+                                <p className="text-2xl md:text-3xl font-bold text-foreground text-center leading-relaxed">
+                                    I knew you would say yes. I love you baby.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 )}
 
                 {/* Envelope */}
-                <div 
-                    className={`relative mx-auto cursor-pointer transition-all duration-500 ${
-                        isEnvelopeOpen ? 'scale-90 opacity-80' : 'hover:scale-105'
-                    }`}
-                    onClick={handleEnvelopeClick}
-                    style={{ width: '400px', height: '300px', maxWidth: '90vw' }}
-                >
-                    <img
-                        src={isEnvelopeOpen ? '/assets/generated/envelope-opened.dim_400x300.png' : '/assets/generated/envelope-closed.dim_400x300.png'}
-                        alt={isEnvelopeOpen ? 'Opened envelope' : 'Closed envelope'}
-                        className={`w-full h-full object-contain transition-all duration-700 ${
-                            isEnvelopeOpen ? 'animate-envelope-open' : ''
-                        }`}
-                    />
-                </div>
+                {!isEnvelopeOpen && (
+                    <div 
+                        className="relative mx-auto cursor-pointer transition-all duration-500 hover:scale-105"
+                        onClick={handleEnvelopeClick}
+                        style={{ width: '400px', height: '300px', maxWidth: '90vw' }}
+                    >
+                        <img
+                            src="/assets/generated/envelope-closed.dim_400x300.png"
+                            alt="Closed envelope"
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                )}
 
                 {/* Floating messages */}
                 {isEnvelopeOpen && floatingMessages.map((message) => (
                     <div
                         key={message.id}
-                        className="absolute bg-white/95 dark:bg-pink-950/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border-2 border-pink-300 dark:border-pink-700 animate-message-float"
+                        className="fixed bg-white/95 dark:bg-pink-950/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border-2 border-pink-300 dark:border-pink-700 animate-message-float z-20"
                         style={{
                             left: `${message.x}%`,
                             top: `${message.y}%`,
@@ -151,7 +175,7 @@ export default function CelebrationPage() {
             </div>
 
             {/* Footer */}
-            <footer className="absolute bottom-4 left-0 right-0 text-center text-sm text-foreground/60">
+            <footer className="absolute bottom-4 left-0 right-0 text-center text-sm text-foreground/60 z-30">
                 <p>
                     © 2025. Built with <Heart className="inline w-4 h-4 text-red-500" fill="currentColor" /> using{' '}
                     <a
