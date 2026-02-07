@@ -1,0 +1,70 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix AnimatedJar visibility and styling on SilverHeartsPage",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Align AnimatedJar DOM class names and structure with existing jar CSS selectors so the jar renders with visible body and lid on SilverHeartsPage.",
+      "acceptanceCriteria": [
+        "On the SilverHeartsPage, the jar is clearly visible on initial load (before any clicks) in both light and dark mode.",
+        "The jar body and lid have visible shapes, borders, and fills (not just unstyled text hearts).",
+        "The fix is achieved by aligning class names between frontend/src/components/AnimatedJar.tsx and the jar-related selectors in frontend/src/index.css (e.g., jar lid/body selectors), without breaking other pages."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AnimatedJar.tsx",
+          "operation": "modify",
+          "description": "Update the jar markup and class names to match existing global jar CSS selectors (e.g., use .jar-container, .jar-body, .jar-neck, .jar-lid, .jar-lid-knob, and apply the existing .falling class when open) so the jar body/lid are styled and visible. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review and minimally adjust jar-related selectors so they correspond to the updated AnimatedJar DOM (e.g., confirm jar lid/body selectors apply correctly, and add any missing selectors needed for jar interior decorations only if required for visibility)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Ensure the jar reliably appears above background layers and decorative effects by correcting stacking order, positioning, and contrast across viewports.",
+      "acceptanceCriteria": [
+        "The jar remains visible and clickable even with the animated silver heart background present.",
+        "The jar does not appear behind any full-screen background layers (no accidental occlusion).",
+        "Jar visibility is consistent across common viewport sizes (mobile and desktop)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Harden jar stacking/visibility styles (e.g., ensure the jar root/container establishes a stacking context and uses an appropriate z-index; ensure lid/body parts layer correctly and remain high-contrast in light/dark backgrounds)."
+        },
+        {
+          "path": "frontend/src/pages/SilverHeartsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the jar area is placed in a non-occluded stacking context above background layers (e.g., apply/confirm a reliable z-index/positioning wrapper around AnimatedJar) so it cannot be visually lost behind the hearts background."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Keep existing jar click behavior and timing intact, including disabling clicks during the lid animation and preserving message/fireworks progression.",
+      "acceptanceCriteria": [
+        "Clicking the jar before it is open triggers the open state and the burst hearts appear.",
+        "While the lid animation is in progress, the jar is not clickable (as currently intended via isClickable), and becomes clickable again after the animation completes.",
+        "After repeated clicks, romantic messages still appear and the fireworks transition still occurs per the current clickCount logic."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SilverHeartsPage.tsx",
+          "operation": "modify",
+          "description": "Align the 'lidAnimationComplete' timing with the actual lid animation duration used by the jar CSS so isClickable remains false for the full animation, then returns to true afterward; keep existing clickCount/message/fireworks logic unchanged."
+        },
+        {
+          "path": "frontend/src/components/AnimatedJar.tsx",
+          "operation": "modify",
+          "description": "Preserve the current interaction contract (onClick only when isClickable, pointer-events disabled otherwise) while updating DOM/classes, ensuring open-state visuals still map to the lid animation class. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

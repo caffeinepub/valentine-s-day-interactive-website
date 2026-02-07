@@ -1,0 +1,74 @@
+{
+  "kind": "build_request",
+  "title": "Make the Animated Jar visible and reliably styled on the Silver Hearts page",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Fix the AnimatedJar component so its DOM class names match the existing jar CSS rules, ensuring the jar renders visibly on SilverHeartsPage.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I wanna change the jar thing. It’s not visible."
+        ]
+      },
+      "acceptanceCriteria": [
+        "On the SilverHeartsPage, the jar is clearly visible on initial load (before any clicks) in both light and dark mode.",
+        "The jar body and lid have visible shapes, borders, and fills (not just unstyled text hearts).",
+        "The fix is achieved by aligning class names between frontend/src/components/AnimatedJar.tsx and the jar-related selectors in frontend/src/index.css (e.g., jar lid/body selectors), without breaking other pages."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Ensure the jar remains visible above the page background and decorative effects by verifying stacking, positioning, and contrast (e.g., z-index/positioning for the jar container and its parts) so it cannot be visually lost behind the background hearts layer.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "It’s not visible."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The jar remains visible and clickable even with the animated silver heart background present.",
+        "The jar does not appear behind any full-screen background layers (no accidental occlusion).",
+        "Jar visibility is consistent across common viewport sizes (mobile and desktop)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Preserve existing jar interactions on SilverHeartsPage: first click opens the jar and triggers the burst hearts; subsequent clicks (after the lid animation completes) continue to show messages and eventually transition to fireworks.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I wanna change the jar thing. It’s not visible."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking the jar before it is open triggers the open state and the burst hearts appear.",
+        "While the lid animation is in progress, the jar is not clickable (as currently intended via isClickable), and becomes clickable again after the animation completes.",
+        "After repeated clicks, romantic messages still appear and the fireworks transition still occurs per the current clickCount logic."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui (immutable paths).",
+    "Keep the backend as-is; no backend changes are required for jar visibility."
+  ],
+  "nonGoals": [
+    "Adding new backend persistence or APIs for jar state.",
+    "Introducing new authentication or identity features.",
+    "Replacing the jar with a 3D model or external image assets unless required to solve visibility (prefer fixing existing CSS/DOM mismatch first)."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

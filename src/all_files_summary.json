@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no functionality.",
+  "feature_evidence.json": "Feature evidence report listing three jar‑related UI fixes and their affected files.",
+  "frontend-file-summaries.txt": "Prewritten summaries of all major frontend files and components.",
+  "frontend/index.css": "Tailwind base theme file defining OKLCH variables for light/dark modes and core layout styling.",
+  "frontend/index.html": "HTML entry point providing root container and loading the React main.tsx module.",
+  "frontend/src/App.tsx": "Manages navigation between pages including question, broken heart, confirmation, silver hearts, and fireworks.",
+  "frontend/src/components/AnimatedJar.tsx": "Renders the clickable animated jar with lid, neck, body, and decorative heart chits.",
+  "frontend/src/components/CSSEnvelope.tsx": "Empty component file with no implementation.",
+  "frontend/src/components/FloatingHeart.tsx": "Floating heart component that renders animated hearts with randomized size, color, delay, and duration.",
+  "frontend/src/hooks/useActor.ts": "Hook creating and managing a backend actor tied to Internet Identity and react‑query invalidation.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Internet Identity auth provider and hook handling login, stored identity loading, and status tracking.",
+  "frontend/src/index.css": "Global styling, heart animations, and full jar CSS including body, neck, lid, and falling lid behavior.",
+  "frontend/src/main.tsx": "App bootstrap that mounts React with query client and Internet Identity provider.",
+  "frontend/src/pages/BrokenHeartPage.tsx": "Displays a sad-themed page that fetches a random Giphy GIF and shows loading, error, or animated heart visuals.",
+  "frontend/src/pages/CelebrationPage.tsx": "Empty file with no implemented content.",
+  "frontend/src/pages/ConfirmationPage.tsx": "Renders a confirmation screen with animated hearts and a button that triggers a callback.",
+  "frontend/src/pages/FireworksPage.tsx": "Generates and animates fireworks composed of particles, continuously spawning and removing them over time.",
+  "frontend/src/pages/QuestionPage.tsx": "Shows a Valentine question with animated hearts and Yes/No buttons wired to callbacks.",
+  "frontend/src/pages/SilverHeartsPage.tsx": "Manages an interactive jar animation that reveals romantic messages and eventually triggers a transition to fireworks.",
+  "frontend/tailwind.config.js": "Tailwind CSS configuration extending colors, animations, and typography with plugins and custom theming.",
+  "project_state.json": "Defines the project's current state, known issue about the jar not being visible, and lists existing features and a new feature request related to fixing and improving the jar component."
+}

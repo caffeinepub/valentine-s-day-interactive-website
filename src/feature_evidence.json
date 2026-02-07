@@ -1,0 +1,65 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-fix-the-animatedjar-component-so-its-dom-class-names-match-the-existing-jar-css-rules-ensuring-the-jar-renders-visibly-on-silverheartspage",
+      "featureTitle": "Fix the AnimatedJar component so its DOM class names match the existing jar CSS rules, ensuring the jar renders visibly on SilverHeartsPage.",
+      "files": [
+        "frontend/src/components/AnimatedJar.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-jar-remains-visible-above-the-page-background-and-decorative-effects-by-verifying-stacking-positioning-and-contrast-e-g-z-index-positioning-for-the-jar-container-and-its-parts-so-it-cannot-be-visually-lost-behind-the-background-hearts-layer",
+      "featureTitle": "Ensure the jar remains visible above the page background and decorative effects by verifying stacking, positioning, and contrast (e.g., z-index/positioning for the jar container and its parts) so it cannot be visually lost behind the background hearts layer.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/SilverHeartsPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-preserve-existing-jar-interactions-on-silverheartspage-first-click-opens-the-jar-and-triggers-the-burst-hearts-subsequent-clicks-after-the-lid-animation-completes-continue-to-show-messages-and-eventually-transition-to-fireworks",
+      "featureTitle": "Preserve existing jar interactions on SilverHeartsPage: first click opens the jar and triggers the burst hearts; subsequent clicks (after the lid animation completes) continue to show messages and eventually transition to fireworks.",
+      "files": [
+        "frontend/src/components/AnimatedJar.tsx",
+        "frontend/src/pages/SilverHeartsPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

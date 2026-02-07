@@ -1,12 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 
-interface QuestionPageProps {
-    onYesClick: () => void;
-    onNoClick: () => void;
+interface ConfirmationPageProps {
+    onButtonClick: () => void;
 }
 
-export default function QuestionPage({ onYesClick, onNoClick }: QuestionPageProps) {
+export default function ConfirmationPage({ onButtonClick }: ConfirmationPageProps) {
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-100 to-red-100 dark:from-pink-950 dark:via-rose-950 dark:to-red-950">
             {/* Floating hearts background */}
@@ -37,28 +36,17 @@ export default function QuestionPage({ onYesClick, onNoClick }: QuestionPageProp
                     />
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400">
-                    Honey, will you be my valentine?
+                <h1 className="text-4xl md:text-6xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-red-500 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400">
+                    I knew you would say yes. I love you baby.
                 </h1>
 
-                <div className="flex gap-6 justify-center items-center">
-                    <Button
-                        size="lg"
-                        onClick={onYesClick}
-                        className="text-xl px-12 py-8 rounded-2xl bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110"
-                    >
-                        Yes 💖
-                    </Button>
-
-                    <Button
-                        size="lg"
-                        variant="outline"
-                        onClick={onNoClick}
-                        className="text-xl px-12 py-8 rounded-2xl border-2 border-gray-400 dark:border-gray-600 hover:border-gray-500 dark:hover:border-gray-500 transition-all duration-300 hover:scale-110"
-                    >
-                        No 💔
-                    </Button>
-                </div>
+                <Button
+                    size="lg"
+                    onClick={onButtonClick}
+                    className="text-xl px-12 py-8 rounded-2xl bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110"
+                >
+                    Click here for receiving love 💖
+                </Button>
             </div>
 
             {/* Footer */}
